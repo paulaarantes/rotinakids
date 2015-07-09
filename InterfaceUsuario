@@ -1,0 +1,7 @@
+package rotina_kids;
+
+public interface I_usuário {
+	
+	public void login_usuario();
+
+}
