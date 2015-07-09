@@ -1,0 +1,8 @@
+package rotina_kids;
+
+public interface I_banco_moedas {
+
+		public void deposita(double valor);
+		public boolean saca(double valor);
+		public void visualiza_saldo();
+}
