@@ -1,0 +1,8 @@
+package rotina_kids;
+
+public interface I_filho {
+	
+	
+	public boolean executa_atividade(int codigo_atividade_atribuida);
+
+}
