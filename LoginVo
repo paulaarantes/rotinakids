@@ -1,0 +1,193 @@
+package view;
+
+import Controller.LoginMock;
+import Dao.ConexaoMySQLDao;
+import Dao.LoginDao;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+/**
+ *
+ * @author Amanda
+ */
+public class LoginVo {
+    static Connection conexao;
+    
+        public LoginVo(Connection conexaoBD) {
+		this.conexao = conexaoBD;
+              
+	}
+        
+    
+    public void telaLogin() throws SQLException{
+        
+        Scanner entrada_usuario = new Scanner(System.in);
+        Scanner entrada_senha = new Scanner(System.in);
+        String usuario, senha;
+
+            System.out.println(" ________________________________________");
+            System.out.println("|                                        |");
+            System.out.println("|           ROTINA KIDS - LOGIN          |");
+            System.out.println("|________________________________________|");
+            System.out.println("  Usuario:");
+            usuario = entrada_usuario.nextLine();
+            System.out.println("  Senha:");
+            senha = entrada_senha.nextLine();
+            model.Login login = new model.Login(usuario,senha);
+            login.setLogin(usuario);
+            login.setSenha(senha);
+                   
+            LoginMock loginMock = new LoginMock();
+
+            if(loginMock.validar(login)){
+                LoginDao loginDao;
+                loginDao = new LoginDao(conexao);
+                            
+                if(loginDao.validar(login)){
+                    System.out.println("Autenticação realizada com sucesso!");
+                }
+                else{
+                    System.out.println("Usuario e/ou Senha Incorretos!");
+                }   
+            }
+            else{
+                System.out.println("vc nao digitou");
+            }  
+    }
+}
+
+
+package view;
+
+import Controller.LoginMock;
+import Controller.ResponsavelMock;
+import Dao.ResponsavelDao;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Scanner;
+import model.Responsavel;
+
+/**
+ *
+ * @author Amanda
+ */
+public class ResponsavelVo{
+    
+    static Connection conexao;
+    Scanner entrada_nome = new Scanner(System.in);
+    Scanner entrada_cpf = new Scanner(System.in);
+    Scanner entrada_login = new Scanner(System.in);
+    Scanner entrada_senha = new Scanner(System.in);
+    Scanner entrada_opcao = new Scanner(System.in);
+    
+    String nome, cpf, login, senha;
+    int opcao;
+    
+
+    public ResponsavelVo(Connection conexaoBD) {
+        this.conexao = conexaoBD;
+    }
+    
+    public void telaCadastroResponsavel() throws SQLException{
+        
+        //COLOCAR UM DO...WHILE..
+
+        System.out.println(" ________________________________________");
+        System.out.println("|                                        |");
+        System.out.println("|  ROTINA KIDS - CADASTRO DE RESPONSAVEL |");
+        System.out.println("|________________________________________|");
+        
+        System.out.println("Nome:");
+        nome = entrada_nome.nextLine();
+        System.out.println("Cpf:");
+        cpf = entrada_cpf.nextLine();
+        System.out.println("Login:");
+        login = entrada_login.nextLine();
+        System.out.println("Senha:");
+        senha = entrada_senha.nextLine();
+
+        Responsavel responsavel = new Responsavel(nome,cpf,login,senha);
+        ResponsavelMock responsavelMock = new ResponsavelMock();
+        
+        
+        if(responsavelMock.validarDados(responsavel)){
+            ResponsavelDao responsavelDao = new ResponsavelDao(conexao);
+          
+                        
+            if(responsavelDao.validarDados(responsavel) == false){ // não existe login cadastrado com o mesmo valor
+
+                    System.out.println(responsavelDao.inserirResponsavel(responsavel));
+            }
+            else{
+                System.out.println("Login Inválido!");
+            }
+         }  
+    }
+    
+    public void telaPrincipalResponsavel() throws SQLException{
+        System.out.println(" ________________________________________");
+        System.out.println("|                                        |");
+        System.out.println("|           ROTINA KIDS - HOME           |");
+        System.out.println("|________________________________________|");
+        System.out.println("| 1- Filho                               |");
+        System.out.println("| 2- Atividades                          |");
+        System.out.println("| 3- Relatorio                           |");
+        System.out.println("| 4- Sair                                |");
+        System.out.println("|________________________________________|");
+        
+        if(opcao == 1){
+            FilhoVo filhoVo = new FilhoVo(conexao);
+            filhoVo.telaPrincipalFilho();
+            
+        
+        }
+        else if(opcao == 2){
+        }
+        else if(opcao == 3){
+        
+        }
+        else if(opcao == 4){
+        
+        }
+        else{
+        
+        }
+    }
+}
+
+package view;
+
+import java.sql.Connection;
+
+/**
+ *
+ * @author Amanda
+ */
+public class FilhoVo {
+    
+        static Connection conexao;
+    
+        public FilhoVo(Connection conexaoBD) {
+		this.conexao = conexaoBD;
+              
+	}
+
+    void telaPrincipalFilho() {
+        System.out.println(" ________________________________________");
+        System.out.println("|                                        |");
+        System.out.println("|           ROTINA KIDS - FILHO          |");
+        System.out.println("|________________________________________|");
+        System.out.println("| 1- Cadastrar                           |");
+        System.out.println("| 2- Remover                             |");
+        System.out.println("| 3- Alterar Idade                       |");
+        System.out.println("| 4- Voltar                              |");
+        System.out.println("|________________________________________|");
+        
+        
+    }
+        
+    
+}
+
+   
