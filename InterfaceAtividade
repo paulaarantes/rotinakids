@@ -1,0 +1,6 @@
+package rotina_kids;
+
+public interface I_atividade {
+
+		public void transfere_moedas(int codigo_atividade_atribuida);
+}
