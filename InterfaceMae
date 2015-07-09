@@ -1,0 +1,9 @@
+package rotina_kids;
+
+public interface I_mae{
+	
+	public void cadastra_usuario();
+	public void cadastra_atividade();
+	public void altera_status_atividade();
+
+}
